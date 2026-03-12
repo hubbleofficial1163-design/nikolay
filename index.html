@@ -987,14 +987,23 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    
     <!-- Обложка -->
     <section class="cover-section">
+        
         <div class="floral-frame"></div>
         <div class="cover-content">
+                    <div class="music-header">
+            <button class="music-header-btn" id="headerMusicToggle">
+                <i class="fas fa-music"></i>
+                <span>Свадебная музыка</span>
+            </button>
+            <audio id="headerMusic" loop preload="metadata">
+                <source src="1.mp3" type="audio/mpeg">
+            </audio>
+        </div>
             <h1 class="names">Николай<br>&<br>Екатерина</h1>
             <div class="date">26 Июня 2026</div>
-
-            
             
             <div class="greeting-block">
                 <p class="greeting-text">
@@ -1007,7 +1016,160 @@
         </div>
     </section>
 
+<style>
+.music-header {
+    position: relative; /* Изменено с absolute */
+    width: 100%; /* Занимает всю ширину контейнера */
+    text-align: center; /* Центрирует содержимое по горизонтали */
+    margin-bottom: 20px; /* Отступ снизу, чтобы отодвинуть имена */
+    z-index: 100;
+}
+
+.music-header-btn {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--beige);
+    color: var(--beige);
+    padding: 10px 20px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 1rem;
+    display: inline-flex; /* Изменено с flex на inline-flex, чтобы кнопка не растягивалась на всю ширину */
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    font-family: 'Cormorant Garamond', serif;
+}
+
+.music-header-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+.music-header-btn.playing i {
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+@media (max-width: 768px) {
+    .music-header {
+        top: 10px;
+        right: 10px;
+        margin-top: 40px;
+        margin-bottom: -40px;
+    }
     
+    .music-header-btn {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+    }
+}
+
+/* Убираем стандартное выделение при тапе на мобильных */
+* {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Разрешаем выделение текста там, где это нужно */
+input, 
+textarea, 
+.form-group label,
+.checkbox-option span,
+.radio-option span,
+.greeting-text,
+.signature,
+.location-text,
+.details-item p {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+}
+
+/* Убираем outline при фокусе на кнопках (добавляем свою стилизацию) */
+button:focus,
+.calendar-nav:focus,
+.map-button:focus,
+.submit-button:focus,
+.music-header-btn:focus,
+.modal-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--beige), 0 0 0 4px var(--olive-green);
+}
+
+/* Для мобильных устройств - убираем стандартные стили при тапе */
+@media (hover: none) and (pointer: coarse) {
+    button:active,
+    .calendar-nav:active,
+    .map-button:active,
+    .submit-button:active,
+    .music-header-btn:active,
+    .modal-button:active {
+        opacity: 0.7;
+        transform: scale(0.98);
+        transition: all 0.1s ease;
+    }
+    
+    /* Убираем стандартное выделение у всех элементов */
+    * {
+        -webkit-tap-highlight-color: transparent;
+    }
+    
+    /* Специально для Safari на iOS */
+    a, button, input, textarea, select, 
+    .calendar-nav, .map-button, .submit-button, 
+    .music-header-btn, .modal-button, .checkbox-option, 
+    .radio-option, .calendar-day {
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+}
+
+/* Дополнительно для Firefox на Android */
+button::-moz-focus-inner,
+.calendar-nav::-moz-focus-inner,
+.map-button::-moz-focus-inner,
+.submit-button::-moz-focus-inner,
+.music-header-btn::-moz-focus-inner,
+.modal-button::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const musicToggle = document.getElementById('headerMusicToggle');
+    const musicPlayer = document.getElementById('headerMusic');
+    const icon = musicToggle.querySelector('i');
+    let isPlaying = false;
+    
+    musicToggle.addEventListener('click', function() {
+        if (isPlaying) {
+            musicPlayer.pause();
+            musicToggle.classList.remove('playing');
+            icon.className = 'fas fa-music';
+        } else {
+            musicPlayer.play().catch(e => {
+                alert('Нажмите на страницу, чтобы разрешить воспроизведение музыки');
+            });
+            musicToggle.classList.add('playing');
+            icon.className = 'fas fa-volume-up';
+        }
+        isPlaying = !isPlaying;
+    });
+});
+</script>
 
     <!-- Календарь -->
     <section class="calendar-section">

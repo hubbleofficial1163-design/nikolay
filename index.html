@@ -74,10 +74,10 @@
         /* Обложка */
         .cover-section {
             min-height: 100vh;
-            background: linear-gradient(rgba(26, 58, 47, 0.8), rgba(26, 58, 47, 0.9)), url('7.jpg') no-repeat center center/cover;
+            background: linear-gradient(rgba(0, 0, 0, 0.497), rgba(0, 0, 0, 0.442)), url('7.jpg') no-repeat center center/cover;
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: center;    
             position: relative;
             overflow: hidden;
         }
@@ -982,9 +982,31 @@
                 box-shadow: none;
             }
         }
+        /* Принудительно возвращаем нужный цвет для текста в секции деталей */
+        .details-item p {
+            color: var(--white) !important; /* Если вдруг цвет сбрасывается */
+        }
+
+        /* Если номера все еще становятся ссылками, делаем их неотличимыми от текста */
+        .details-item a {
+            color: var(--white);
+            text-decoration: none;
+            pointer-events: none; /* Если хотите полностью отключить кликабельность */
+        }
+
+        /* Или более мягкий вариант - просто меняем цвет */
+        .details-item a[href^="tel"] {
+            color: var(--white);
+            text-decoration: none;
+        }
+        .phone-number {
+            color: #6b8e23; /* Желто-зеленый */
+            font-weight: 500; /* Немного жирнее для выделения */
+        }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="format-detection" content="telephone=no">
 </head>
 <body>
     
@@ -1315,14 +1337,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="details-content">
                     <div class="details-item">
                         <div class="details-item-title">Уважаемые гости!</div>
-                        <p>Будем рады, если вместо цветов в загс вы подарите нам бутылочку любимого вашего алкоголя, который мы разопьем на первый наш семейный праздник </p>
+                        <p>Ваши пожелания в конвертах будут лучшими подарками, которые помогут исполнить наши мечты, а также просим воздержаться от цветов и заменить их на бутылочку вашего любимого напитка, который мы обязательно разопьем на наш первый семейный праздник.</p>
                         <style>.details-item p {
                             margin-bottom: 25px; /* Можно поставить любое значение: 15px, 20px, 30px и т.д. */
                         }</style>
                         <p>Наш вечер будет особенным и, к сожалению, не совсем подходящим для детей. Пожалуйста, позвольте себе отдохнуть и насладиться праздником.</p>
 
-                        <p>Контакты для связи до свадьбы: невеста <br> 8 (982) 588-83-99;</p>
-                        <p>В момент  свадьбы: координатор Софья <br> 8 (919) 583-57-58;</p>
+<p>Контакты для связи до свадьбы: невеста <br> <span class="phone-number">8 (982) 588-83-99;</span></p>
+<p>В момент свадьбы: координатор Софья <br> <span class="phone-number">8 (919) 583-57-58;</span></p>
                     </div>
                 </div>
             </div>

@@ -1509,12 +1509,12 @@ document.addEventListener('DOMContentLoaded', function() {
     <script>
     // ==============================================
     // СВАДЕБНЫЙ САЙТ - ФРОНТЕНД
-    // Николай & Анна | 24.07.2026
+    // Николай & Екатерина | 24.07.2026
     // ==============================================
 
     // === НАСТРОЙКИ GOOGLE APPS SCRIPT ===
     const GOOGLE_SCRIPT_CONFIG = {
-        URL: 'https://script.google.com/macros/s/AKfybVFEalr/exec' // ЗАМЕНИТЕ НА ВАШ URL
+        URL: 'https://script.google.com/macros/s/AKfycbxngZAbfMeTUK01DzCqu5MKZLOhWvG9_YF5Ux2s3kYtjoxSFafhBAXqDZZE-Coie32YBw/exec' // ЗАМЕНИТЕ НА ВАШ URL
     };
 
     // === КАЛЕНДАРЬ ===
@@ -1621,7 +1621,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <p class="modal-message">Мы получили ваше подтверждение и очень рады, что вы разделите с нами этот особенный день!</p>
                         <div class="modal-details">
                             <p>С любовью,</p>
-                            <p class="modal-signature">Николай & Анна</p>
+                            <p class="modal-signature">Николай & Екатерина</p>
                         </div>
                         <button class="modal-button">Хорошо</button>
                     </div>
@@ -2034,24 +2034,14 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         // Маска для телефона (простая)
-        const phoneInput = document.getElementById('phone');
-        phoneInput.addEventListener('input', (e) => {
-            let value = e.target.value.replace(/\D/g, '');
-            if (value.length > 0) {
-                if (value.length <= 1) {
-                    value = `+7 (${value}`;
-                } else if (value.length <= 4) {
-                    value = `+7 (${value.slice(1, 4)}`;
-                } else if (value.length <= 7) {
-                    value = `+7 (${value.slice(1, 4)}) ${value.slice(4, 7)}`;
-                } else if (value.length <= 9) {
-                    value = `+7 (${value.slice(1, 4)}) ${value.slice(4, 7)}-${value.slice(7, 9)}`;
-                } else {
-                    value = `+7 (${value.slice(1, 4)}) ${value.slice(4, 7)}-${value.slice(7, 9)}-${value.slice(9, 11)}`;
-                }
+            // Простая валидация для телефона - только цифры, пробелы, скобки и плюс
+            const phoneInput = document.getElementById('phone');
+            phoneInput.addEventListener('input', (e) => {
+                // Разрешаем только цифры, пробелы, скобки, дефисы и плюс
+                let value = e.target.value;
+                value = value.replace(/[^\d\s\+\-\(\)]/g, '');
                 e.target.value = value;
-            }
-        });
+            });
     });
 
     // Предзагрузка изображений
